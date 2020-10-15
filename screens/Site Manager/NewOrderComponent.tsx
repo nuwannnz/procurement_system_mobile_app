@@ -1,19 +1,19 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { SCREENS } from '../constants/screens';
-import { BTN_STYLE, COLORS } from '../constants/styles'
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
 
-export default function PendingOrderComponent() {
+export default function NewOrderComponent() {
 
     const navigation = useNavigation();
 
     return (
-         <View>
+        <View>
             <View style={styles.card}>
                 <View style={styles.tagWrap}>
                     <View >
-                        <Text style={styles.tag}>Low</Text>
+                        <Text style={styles.tag}>High</Text>
                     </View>
                 </View>
                 <View style={styles.row}>
@@ -32,8 +32,8 @@ export default function PendingOrderComponent() {
                     <Text style={styles.title}>Number Of Items : </Text>
                     <Text>5</Text>
                 </View>
-                <View style={styles.btnWrap}>
-                    <View >
+                <View>
+                    <View style={styles.detailsBtn}>
                         <TouchableOpacity
                             style={[BTN_STYLE.ACCENT_BUTTON, { width: 100, height: 35 }]}
                             onPress={() => {
@@ -41,11 +41,6 @@ export default function PendingOrderComponent() {
                             }}
                         >
                             <Text style={{color: COLORS.textOnAccentColor}}>Details</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View >
-                        <TouchableOpacity style={[BTN_STYLE.ACCENT_DENGER_BUTTON, {width: 100, height: 35}]}>
-                            <Text style={{color: COLORS.textOnAccentColor}}>Cancel Order</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
     },
 
     tag: {
-        backgroundColor: "gray",
+        backgroundColor: "red",
         borderRadius: 20,
         padding: 8,
         paddingTop: 3,
@@ -94,11 +89,9 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
 
-
-    btnWrap: {
+    detailsBtn: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "flex-end"
     }
-    
 })

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, Modal, Alert } from 'react-native'
-import { BTN_STYLE, COLORS } from '../constants/styles'
+import { BTN_STYLE, COLORS } from '../../constants/styles';
+
 
 export default function RejectedOrderComponent() {
 
@@ -73,9 +74,12 @@ export default function RejectedOrderComponent() {
                   >
                     Rejected Reason
                   </Text>
-                  <Text style={styles.modalText}>
-                    Not enough budget available.
-                  </Text>
+
+                  <View style={styles.reasonMsgWrap}>
+                    <Text style={styles.modalText}>
+                      * Not enough budget available. 
+                    </Text>
+                  </View>
 
                   <TouchableHighlight
                     style={[
@@ -198,5 +202,12 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       color: "#721c24",
     },
-    
+    reasonMsgWrap: {
+      borderWidth: 2,
+      borderColor: "#dc3545",
+      borderRadius: 10,
+      marginTop: 10,
+      marginBottom: 10,
+      paddingTop: 0
+    }
 })

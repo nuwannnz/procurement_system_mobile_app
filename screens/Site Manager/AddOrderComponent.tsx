@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Picker, TouchableHighlight, Modal, Alert, TextInput } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { SCREENS } from '../constants/screens';
-import { BTN_STYLE, COLORS } from '../constants/styles';
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
 
-export default function DetailedOrderComponent() {
+export default function AddOrderComponent() {
 
     const navigation = useNavigation();
 
@@ -13,7 +13,6 @@ export default function DetailedOrderComponent() {
     const [selectedSupValue, setSelectedSupValue] = useState("Anne Kalin");
     const [selectedItemValue, setSelectedItemValue] = useState("Wood");
     
-    const [remove, setRemove] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -81,88 +80,21 @@ export default function DetailedOrderComponent() {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.itemWrap}>
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Wood</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Glass</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Metal</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Cement</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Bricks and Blocks</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-                            
-                            {remove ? 
-                                <View style={styles.item}>
-                                    <Text style={styles.itemText}>Pins</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setRemove(false)
-                                    }}>
-                                        <Text style={styles.removeBtn}>X</Text>
-                                    </TouchableOpacity>
-                                </View> : null
-                            }
-                        </View>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Sub Total : </Text>
-                        <Text style={styles.value}>Rs. 80000</Text>
+                        <Text style={styles.value}>Rs. 0</Text>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Tax(13%) : </Text>
-                        <Text style={styles.value}>Rs. 100</Text>
+                        <Text style={styles.value}>Rs. 0</Text>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Total : </Text>
-                        <Text style={styles.value}>Rs. 80100</Text>
+                        <Text style={styles.value}>Rs. 0</Text>
                     </View>
 
                     <View style={[styles.row, { marginTop: 20 }]}>

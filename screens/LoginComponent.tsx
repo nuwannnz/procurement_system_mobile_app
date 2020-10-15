@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Modal,
 import { SCREENS } from "../constants/screens";
 import { BTN_STYLE, COLORS } from "../constants/styles";
 
+
 export default function LoginComponent() {
 
   const navigation = useNavigation();
@@ -30,16 +31,27 @@ export default function LoginComponent() {
     }
 
     if (username.length > 0 && password.length > 0) {
-      if (username !== "Anjana" || password !== "a123") {
-        setModalVisible(true);
+      if (username === "Anjana" || password === "a123") {
+        navigation.navigate(SCREENS.HOME);
+        setModalVisible(false);
+        setUsername("");
+        setPassword("");
         return;
       } 
-      navigation.navigate(SCREENS.HOME);
-      setModalVisible(false);
-      setUsername("");
-      setPassword("");
+      setModalVisible(true);
+      
     }
 
+    if (username.length > 0 && password.length > 0) {
+      if (username === "AnjanaK" || password === "ak12") {
+        navigation.navigate(SCREENS.SUPPLIER_HOME);
+        setModalVisible(false);
+        setUsername("");
+        setPassword("");
+        return;
+      } 
+      setModalVisible(true);
+    }
   };
  
 

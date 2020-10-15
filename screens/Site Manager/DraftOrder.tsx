@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { SCREENS } from '../constants/screens';
-import { BTN_STYLE, COLORS } from '../constants/styles'
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
 
 export default function DraftOrder() {
 

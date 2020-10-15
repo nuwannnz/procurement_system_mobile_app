@@ -2,10 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Picker, TouchableHighlight, Modal, Alert, TextInput } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { SCREENS } from '../constants/screens';
-import { BTN_STYLE, COLORS } from '../constants/styles';
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
 
-export default function AddOrderComponent() {
+
+export default function DetailedOrderComponent() {
 
     const navigation = useNavigation();
 
@@ -13,6 +14,7 @@ export default function AddOrderComponent() {
     const [selectedSupValue, setSelectedSupValue] = useState("Anne Kalin");
     const [selectedItemValue, setSelectedItemValue] = useState("Wood");
     
+    const [remove, setRemove] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -42,33 +44,37 @@ export default function AddOrderComponent() {
 
                     <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 7}}>
                         <Text style={styles.text}>Site : </Text>
-                        <Picker
-                            selectedValue={selectedSiteValue}
-                            mode="dropdown"
-                            style={{ height: 23, width: 120}}
-                            onValueChange={(itemValue, itemIndex) => setSelectedSiteValue(itemValue)}
-                        >
-                            <Picker.Item label="Kandy" value="Kandy" />
-                            <Picker.Item label="Colombo" value="Colombo" />
-                        </Picker>
+                        <View style={styles.inputField}>
+                            <Picker
+                                selectedValue={selectedSiteValue}
+                                mode="dropdown"
+                                style={{ height: 25, width: 150}}
+                                onValueChange={(itemValue, itemIndex) => setSelectedSiteValue(itemValue)}
+                            >
+                                <Picker.Item label="Kandy" value="Kandy" />
+                                <Picker.Item label="Colombo" value="Colombo" />
+                            </Picker>
+                         </View>
                     </View>
 
                     <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 7}}>
                         <Text style={styles.text}>Supplier : </Text>
-                        <Picker
-                            selectedValue={selectedSupValue}
-                            mode="dropdown"
-                            style={{ height: 23, width: 140}}
-                            onValueChange={(itemValue, itemIndex) => setSelectedSupValue(itemValue)}
-                        >
-                            <Picker.Item label="Anne Kalin" value="Anne Kalin" />
-                            <Picker.Item label="Jim Visly" value="Jim Visly" />
-                        </Picker>
+                        <View style={styles.inputField}>
+                            <Picker
+                                selectedValue={selectedSupValue}
+                                mode="dropdown"
+                                style={{ height: 25, width: 150}}
+                                onValueChange={(itemValue, itemIndex) => setSelectedSupValue(itemValue)}
+                            >
+                                <Picker.Item label="Anne Kalin" value="Anne Kalin" />
+                                <Picker.Item label="Jim Visly" value="Jim Visly" />
+                            </Picker>
+                        </View>
                     </View>
 
                     <View style={{ marginTop: 10 }}>
                         <View style={[styles.row, {marginBottom: 5}]}>
-                            <Text style={styles.text}>Items List : </Text>
+                            <Text style={[styles.text, {textDecorationLine: "underline"}]}>Items List</Text>
                             <View>
                                 <TouchableOpacity
                                     style={styles.addBtn}
@@ -80,24 +86,91 @@ export default function AddOrderComponent() {
                                 </TouchableOpacity>
                             </View>
                         </View>
+                        <View style={styles.itemWrap}>
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Wood</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Glass</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Metal</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Cement</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Bricks and Blocks</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+                            
+                            {remove ? 
+                                <View style={styles.item}>
+                                    <Text style={styles.itemText}>Pins</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setRemove(false)
+                                    }}>
+                                        <Text style={styles.removeBtn}>X</Text>
+                                    </TouchableOpacity>
+                                </View> : null
+                            }
+                        </View>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Sub Total : </Text>
-                        <Text style={styles.value}>Rs. 0</Text>
+                        <Text style={styles.value}>Rs. 80000</Text>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Tax(13%) : </Text>
-                        <Text style={styles.value}>Rs. 0</Text>
+                        <Text style={styles.value}>Rs. 100</Text>
                     </View>
 
                     <View style={[styles.row, {marginTop: 15}]}>
                         <Text style={styles.text}>Total : </Text>
-                        <Text style={styles.value}>Rs. 0</Text>
+                        <Text style={styles.value}>Rs. 80100</Text>
                     </View>
 
-                    <View style={[styles.row, { marginTop: 20 }]}>
+                    <View style={[styles.row, { marginTop: 10 }]}>
                         <View>
                             <TouchableOpacity
                                 style={[BTN_STYLE.ACCENT_BUTTON, { width: 120 }]}
@@ -300,11 +373,11 @@ const styles = StyleSheet.create({
     },
 
     inputField: {
-        height: 50,
-        width: 200,
+        height: 40,
+        width: 150,
         borderColor: "#004085",
         borderWidth: 1,
-        padding: 10,
+        padding: 5,
         borderRadius: 5,
     },
 

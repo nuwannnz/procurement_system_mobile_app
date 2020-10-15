@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native'
-import { SCREENS } from '../constants/screens';
-import { COLORS } from '../constants/styles'
+import { COLORS } from '../../constants/styles';
 import ApprovedOrderComponent from './ApprovedOrderComponent';
 import NewOrderComponent from './NewOrderComponent';
 import PendingOrderComponent from './PendingOrderComponent';
@@ -12,12 +11,10 @@ export default function ViewOrderComponent() {
 
     const navigation = useNavigation();
 
-    const [newOrder, setNewOrder] = useState(false);
+    const [newOrder, setNewOrder] = useState(true);
     const [approvedOrder, setApprovedOrder] = useState(false);
     const [pendingOrder, setPendingOrder] = useState(false);
     const [rejectedOrder, setRejectedOrder] = useState(false);
-
-    const a: number[] = [1, 2, 3, 4, 5];
 
     return (
        
@@ -33,7 +30,10 @@ export default function ViewOrderComponent() {
                                 setNewOrder(!newOrder);
                                 }}
                             >
-                                <Text style={{color: COLORS.textOnAccentColor}}>New</Text>
+                            <Text
+                                style={{
+                                    color: newOrder ? "#EEA47FFF" : COLORS.textOnAccentColor,
+                                    fontWeight: newOrder ? "bold" : "normal" }}>New</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -44,7 +44,10 @@ export default function ViewOrderComponent() {
                             setRejectedOrder(false);
                             setApprovedOrder(!approvedOrder);
                             }}>
-                                <Text style={{color: COLORS.textOnAccentColor}}>Approved</Text>
+                            <Text
+                                style={{
+                                    color: approvedOrder ? "#EEA47FFF" : COLORS.textOnAccentColor,
+                                    fontWeight: approvedOrder ? "bold" : "normal" }}>Approved</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -55,7 +58,10 @@ export default function ViewOrderComponent() {
                             setRejectedOrder(false);
                             setPendingOrder(!pendingOrder);
                             }}>
-                                <Text style={{color: COLORS.textOnAccentColor}}>Pending</Text>
+                            <Text
+                                style={{
+                                    color: pendingOrder ? "#EEA47FFF" : COLORS.textOnAccentColor,
+                                    fontWeight: pendingOrder ? "bold" : "normal" }}>Pending</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -66,7 +72,10 @@ export default function ViewOrderComponent() {
                             setPendingOrder(false);
                             setRejectedOrder(!rejectedOrder);
                             }}>
-                                <Text style={{color: COLORS.textOnAccentColor}}>Rejected</Text>
+                            <Text
+                                style={{
+                                    color: rejectedOrder ? "#EEA47FFF" : COLORS.textOnAccentColor,
+                                    fontWeight: rejectedOrder ? "bold" : "normal" }}>Rejected</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -133,7 +142,7 @@ const styles = StyleSheet.create({
     navItem: {
         paddingRight: 20,
         paddingBottom: 10,
-        borderRightWidth: 2
+        borderRightWidth: 2,
     },
     cardWrap: {
         display: "flex",

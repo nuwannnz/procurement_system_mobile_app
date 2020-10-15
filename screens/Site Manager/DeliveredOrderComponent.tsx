@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { COLORS } from '../../constants/styles'
 
 export default function DeliveredOrderComponent() {
     return (
@@ -49,22 +50,31 @@ const styles = StyleSheet.create({
 
     header: {
         fontSize: 15,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        width: 95,
+        textAlign: "center",
+        color: COLORS.textOnAccentColor,
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingRight: 8
     },
 
     headerWrap: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: COLORS.accentColor
     },
      
     data: {
-        fontSize: 15
+        fontSize: 15,
+        width: 95,
+        textAlign: "center"
     },
      
     dataWrap: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 5
+        marginBottom: 5,
     }
 })

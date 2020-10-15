@@ -1,19 +1,18 @@
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
-import { SCREENS } from '../constants/screens'
-import { BTN_STYLE, COLORS } from '../constants/styles'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
 
-export default function HomePageComponent() {
+export default function HomePage() {
 
     const navigation = useNavigation();
 
     return (
-        <ScrollView>
+       <ScrollView>
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.title}>Welcome To ABC Construction</Text>
+                    <Text style={styles.title}>Welcome Anjana!</Text>
                 </View>
 
                 <View>
@@ -21,10 +20,10 @@ export default function HomePageComponent() {
                         <TouchableOpacity
                             style={BTN_STYLE.ACCENT_BUTTON}
                             onPress={() => {
-                                navigation.navigate(SCREENS.CREATE_ORDER)
+                                navigation.navigate(SCREENS.INCOMING_ORDER)
                             }}    
                         >
-                            <Text style={{color: COLORS.textOnAccentColor}}>Create Purchase Order</Text>
+                            <Text style={{color: COLORS.textOnAccentColor}}>View Incoming Orders</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -32,38 +31,21 @@ export default function HomePageComponent() {
                         <TouchableOpacity
                             style={BTN_STYLE.ACCENT_BUTTON}
                             onPress={() => {
-                                navigation.navigate(SCREENS.VIEW_ORDER)
+                                navigation.navigate(SCREENS.SUPPLIER_DELIVERED_ORDER)
                             }} 
                         >
-                            <Text style={{color: COLORS.textOnAccentColor}}>View Purchase Order</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.marginB}>
-                        <TouchableOpacity style={BTN_STYLE.ACCENT_BUTTON}>
-                            <Text style={{color: COLORS.textOnAccentColor}}>Submit Invoice</Text>
+                            <Text style={{color: COLORS.textOnAccentColor}}>View Delivered Orders</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.marginB}>
                         <TouchableOpacity
                             style={BTN_STYLE.ACCENT_BUTTON}
-                            onPress={() => {
-                                navigation.navigate(SCREENS.DRAFTS_ORDER)
+                             onPress={() => {
+                                navigation.navigate(SCREENS.PAYMENTS_RECEIVED)
                             }}
                         >
-                            <Text style={{color: COLORS.textOnAccentColor}}>Draft Orders</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                     <View style={styles.marginB}>
-                        <TouchableOpacity
-                            style={BTN_STYLE.ACCENT_BUTTON}
-                            onPress={() => {
-                                navigation.navigate(SCREENS.RETURN_ORDER)
-                            }}
-                        >
-                            <Text style={{color: COLORS.textOnAccentColor}}>Return Goods</Text>
+                            <Text style={{color: COLORS.textOnAccentColor}}>View Payments Received</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -71,10 +53,10 @@ export default function HomePageComponent() {
                         <TouchableOpacity
                             style={BTN_STYLE.ACCENT_BUTTON}
                             onPress={() => {
-                                navigation.navigate(SCREENS.DELIVERED_ORDER)
+                                navigation.navigate(SCREENS.RETURN_REQUESTS)
                             }}
                         >
-                            <Text style={{color: COLORS.textOnAccentColor}}>Delivered Orders</Text>
+                            <Text style={{color: COLORS.textOnAccentColor}}>View Return Requests</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -82,7 +64,6 @@ export default function HomePageComponent() {
         </ScrollView>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {

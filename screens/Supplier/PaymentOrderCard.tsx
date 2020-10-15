@@ -1,16 +1,15 @@
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { SCREENS } from '../constants/screens';
-import { BTN_STYLE, COLORS } from '../constants/styles'
+import { SCREENS } from '../../constants/screens';
+import { BTN_STYLE, COLORS } from '../../constants/styles'
 
-export default function NewOrderComponent() {
+export default function PaymentOrderCard() {
 
     const navigation = useNavigation();
 
     return (
-        <View>
-            <View style={styles.card}>
+        <View style={styles.card}>
                 <View style={styles.tagWrap}>
                     <View >
                         <Text style={styles.tag}>High</Text>
@@ -19,6 +18,14 @@ export default function NewOrderComponent() {
                 <View style={styles.row}>
                     <Text style={styles.title}>PO # : </Text>
                     <Text>QKS998</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.title}>Company : </Text>
+                    <Text>Kandy HardWare</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.title}>Delivery Address : </Text>
+                    <Text>No.37, Kandy</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.title}>Date Requested : </Text>
@@ -37,23 +44,22 @@ export default function NewOrderComponent() {
                         <TouchableOpacity
                             style={[BTN_STYLE.ACCENT_BUTTON, { width: 100, height: 35 }]}
                             onPress={() => {
-                                navigation.navigate(SCREENS.DETAILS_ORDER)
+                                navigation.navigate(SCREENS.PAYMENTS_RECEIVED_DETAILS)
                             }}
                         >
-                            <Text style={{color: COLORS.textOnAccentColor}}>Details</Text>
+                            <Text style={{color: COLORS.textOnAccentColor}}>View Order</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 
             </View>
-        </View>
     )
 }
 
 const styles = StyleSheet.create({
 
     card: {
-        height: 200,
+        height: 250,
         width: 300,
         backgroundColor: "#eee",
         elevation: 5,

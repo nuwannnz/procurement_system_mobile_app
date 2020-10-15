@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Picker, TouchableOpacity, ScrollView } from 'react-native'
-import { BTN_STYLE, COLORS } from '../constants/styles';
+import { BTN_STYLE, COLORS } from '../../constants/styles';
+
 
 export default function ReturnOrderComponent() {
 
