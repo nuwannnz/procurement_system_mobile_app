@@ -1,62 +1,117 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Modal, Alert, TouchableHighlight, KeyboardAvoidingView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Alert,
+  TouchableHighlight,
+  KeyboardAvoidingView,
+  AsyncStorage,
+} from "react-native";
 import { SCREENS } from "../constants/screens";
 import { BTN_STYLE, COLORS } from "../constants/styles";
+import axios from "axios";
+import { API_URL } from "../constants/API";
 
+export type UserInfoType = {
+  token: string;
+  userData: {
+    id: number;
+    userRole: number;
+    email: string;
+  };
+};
 
 export default function LoginComponent() {
-
   const navigation = useNavigation();
 
-   const [modalVisible, setModalVisible] = useState(false);
-  const [username, setUsername] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
-    if (username.length > 0) {
-      setUsernameError(false);
-    } else { 
-      setUsernameError(true); 
+    if (email.length > 0) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
       setModalVisible(false);
     }
 
     if (password.length > 0) {
       setPasswordError(false);
-    } else  {
+    } else {
       setPasswordError(true);
       setModalVisible(false);
     }
 
-    if (username.length > 0 && password.length > 0) {
-      if (username === "Anjana" || password === "a123") {
-        navigation.navigate(SCREENS.HOME);
-        setModalVisible(false);
-        setUsername("");
-        setPassword("");
-        return;
-      } 
-      setModalVisible(true);
-      
+    if (email.length > 0 && password.length > 0) {
+      (async () => {
+        setIsLoading(true);
+        const result = await axios.post(`${API_URL}/users/login`, {
+          email,
+          password,
+        });
+        setIsLoading(false);
+        if (result.data.isAuth) {
+          const userInfo: UserInfoType = {
+            token: result.data.token,
+            userData: result.data.userInfo,
+          };
+
+          let nextPage = "";
+
+          if (userInfo.userData.userRole === 4) {
+            // site manager
+            nextPage = SCREENS.HOME;
+          } else if (userInfo.userData.userRole === 5) {
+            // supplier
+            nextPage = SCREENS.SUPPLIER_HOME;
+          } else {
+            // someone else
+            setModalVisible(true);
+            return;
+          }
+          // store token and user info
+          await AsyncStorage.setItem("auth", JSON.stringify(userInfo));
+
+          navigation.navigate(nextPage);
+        } else {
+          setModalVisible(true);
+        }
+      })();
+
+      // if (email === "Anjana" || password === "a123") {
+      //   navigation.navigate(SCREENS.HOME);
+      //   setModalVisible(false);
+      //   setEmail("");
+      //   setPassword("");
+      //   return;
+      // }
+      // setModalVisible(true);
     }
 
-    if (username.length > 0 && password.length > 0) {
-      if (username === "AnjanaK" || password === "ak12") {
-        navigation.navigate(SCREENS.SUPPLIER_HOME);
-        setModalVisible(false);
-        setUsername("");
-        setPassword("");
-        return;
-      } 
-      setModalVisible(true);
-    }
+    // if (email.length > 0 && password.length > 0) {
+    //   if (email === "AnjanaK" || password === "ak12") {
+    //     navigation.navigate(SCREENS.SUPPLIER_HOME);
+    //     setModalVisible(false);
+    //     setEmail("");
+    //     setPassword("");
+    //     return;
+    //   }
+    //   setModalVisible(true);
+    // }
   };
- 
 
   return (
-     <ScrollView>
+    <ScrollView>
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Welcome Back!</Text>
@@ -65,85 +120,98 @@ export default function LoginComponent() {
 
         <View>
           <View style={styles.marginB}>
-            <Text style={styles.label}>Username</Text>
-          
-            <TextInput  placeholder="Ex: Anjana" style={styles.inputField} onChangeText={text => setUsername(text)}/>
-            
-           {usernameError ? <Text style={styles.errorMsg}>This field is required.</Text> : null} 
+            <Text style={styles.label}>Email</Text>
+
+            <TextInput
+              placeholder="Ex: Anjana@abc.com"
+              style={styles.inputField}
+              onChangeText={(text) => setEmail(text)}
+            />
+
+            {emailError ? (
+              <Text style={styles.errorMsg}>This field is required.</Text>
+            ) : null}
           </View>
 
           <View style={styles.marginB}>
             <Text style={styles.label}>Password</Text>
 
-            <TextInput secureTextEntry={true} style={styles.inputField} onChangeText={text => setPassword(text)}/>
-              
-            {passwordError ? <Text style={styles.errorMsg}>This field is required.</Text> : null} 
-            
+            <TextInput
+              secureTextEntry={true}
+              style={styles.inputField}
+              onChangeText={(text) => setPassword(text)}
+            />
+
+            {passwordError ? (
+              <Text style={styles.errorMsg}>This field is required.</Text>
+            ) : null}
           </View>
 
           <View>
-            <View style={{alignItems: "center"}}>
+            <View style={{ alignItems: "center" }}>
               <TouchableOpacity
                 style={[BTN_STYLE.ACCENT_BUTTON, { width: 150 }]}
                 onPress={() => {
-                 handleLogin()
+                  handleLogin();
                 }}
               >
-                <Text style={{ color: COLORS.textOnAccentColor }}>Login Now</Text>
+                <Text style={{ color: COLORS.textOnAccentColor }}>
+                  Login Now
+                </Text>
               </TouchableOpacity>
+
+              {isLoading && <Text style={{ marginTop: 10 }}>Login in...</Text>}
             </View>
           </View>
 
           {/* Model View */}
           <View>
-              <View style={styles.centeredView}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-              }}
-            >
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 30,
-                      color: "#721c24",
-                    }}
-                  >
-                    Sorry!
-                  </Text>
-                  <Text style={styles.modalText}>
-                    Your Username and Password are incorrect. Please try again.
-                  </Text>
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                }}
+              >
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 30,
+                        color: "#721c24",
+                      }}
+                    >
+                      Sorry!
+                    </Text>
+                    <Text style={styles.modalText}>
+                      Your Username and Password are incorrect. Please try
+                      again.
+                    </Text>
 
-                  <TouchableHighlight
-                    style={[
-                      BTN_STYLE.ACCENT_DENGER_BUTTON,
-                      { width: 80, height: 40 },
-                    ]}
-                    onPress={() => {
-                      setModalVisible(!modalVisible);
-                    }}
-                  >
-                    <Text style={styles.textStyle}>OK</Text>
-                  </TouchableHighlight>
+                    <TouchableOpacity
+                      style={[
+                        BTN_STYLE.ACCENT_DENGER_BUTTON,
+                        { width: 80, height: 40 },
+                      ]}
+                      onPress={() => {
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <Text style={styles.textStyle}>OK</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Modal>
+              </Modal>
+            </View>
           </View>
-          </View>
-
         </View>
       </View>
     </ScrollView>
   );
 }
-
- 
 
 const styles = StyleSheet.create({
   container: {
@@ -152,7 +220,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     margin: 30,
-    height: "100%"
+    height: "100%",
   },
 
   title: {
@@ -161,15 +229,15 @@ const styles = StyleSheet.create({
   },
 
   subTitle: {
-      fontSize: 20,
-      color: "#777777",
-      fontWeight: "bold",
-      marginBottom: 30,
-    },
+    fontSize: 20,
+    color: "#777777",
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
 
   label: {
     fontWeight: "bold",
-    fontSize: 15
+    fontSize: 15,
   },
 
   inputField: {
@@ -181,13 +249,13 @@ const styles = StyleSheet.create({
   },
 
   marginB: {
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   errorMsg: {
-      fontWeight: "bold",
-      fontSize: 13,
-      color: "red",
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "red",
   },
 
   centeredView: {
@@ -233,5 +301,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#721c24",
   },
-  
-})
+});

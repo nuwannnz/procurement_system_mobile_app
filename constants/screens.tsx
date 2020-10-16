@@ -11,8 +11,9 @@ export const SCREENS = {
   INCOMING_ORDER: "Incoming Orders",
   SUPPLIER_ORDER_DETAILS: "Order Details",
   SUPPLIER_DELIVERED_ORDER: "Delivered Orders",
+  SUPPLIER_ITEMS: "My Items",
   PAYMENTS_RECEIVED: "Payments Received",
   RETURN_REQUESTS: "Return Requests",
   RETURN_REQUESTS_DETAILS: "Return Request Details",
-  PAYMENTS_RECEIVED_DETAILS: "Payment Received Details"
+  PAYMENTS_RECEIVED_DETAILS: "Payment Received Details",
 };
