@@ -81,7 +81,8 @@ export default function LoginComponent() {
           }
           // store token and user info
           await AsyncStorage.setItem("auth", JSON.stringify(userInfo));
-
+          setEmail("");
+          setPassword("");
           navigation.navigate(nextPage);
         } else {
           setModalVisible(true);
@@ -125,6 +126,7 @@ export default function LoginComponent() {
             <TextInput
               placeholder="Ex: Anjana@abc.com"
               style={styles.inputField}
+              value={email}
               onChangeText={(text) => setEmail(text)}
             />
 
@@ -139,6 +141,7 @@ export default function LoginComponent() {
             <TextInput
               secureTextEntry={true}
               style={styles.inputField}
+              value={password}
               onChangeText={(text) => setPassword(text)}
             />
 

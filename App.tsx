@@ -21,6 +21,7 @@ import ReturnRequests from "./screens/Supplier/ReturnRequests";
 import ReturnRequestsDetails from "./screens/Supplier/ReturnRequestsDetails";
 import PaymentReceivedDetails from "./screens/Supplier/PaymentReceivedDetails";
 import MyItems from "./screens/Supplier/MyItems";
+import SubmitInvoiceComponent from "./screens/Site Manager/SubmitInvoiceComponent";
 
 const Stack = createStackNavigator();
 
@@ -82,6 +83,10 @@ export default function App() {
         <Stack.Screen
           name={SCREENS.PAYMENTS_RECEIVED_DETAILS}
           component={PaymentReceivedDetails}
+        />
+        <Stack.Screen
+          name={SCREENS.SUBMIT_INVOICE}
+          component={SubmitInvoiceComponent}
         />
         <Stack.Screen name={SCREENS.SUPPLIER_ITEMS} component={MyItems} />
       </Stack.Navigator>

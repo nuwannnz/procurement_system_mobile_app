@@ -17,7 +17,7 @@ export default function HomePage() {
     <ScrollView>
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Welcome Anjana!</Text>
+          <Text style={styles.title}>Welcome</Text>
         </View>
 
         <View>
@@ -81,6 +81,16 @@ export default function HomePage() {
               <Text style={{ color: COLORS.textOnAccentColor }}>
                 View Return Requests
               </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.marginB}>
+            <TouchableOpacity
+              style={BTN_STYLE.ACCENT_BUTTON}
+              onPress={() => {
+                navigation.navigate(SCREENS.LOGIN);
+              }}
+            >
+              <Text style={{ color: COLORS.textOnAccentColor }}>Log out</Text>
             </TouchableOpacity>
           </View>
         </View>

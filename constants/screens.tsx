@@ -16,4 +16,5 @@ export const SCREENS = {
   RETURN_REQUESTS: "Return Requests",
   RETURN_REQUESTS_DETAILS: "Return Request Details",
   PAYMENTS_RECEIVED_DETAILS: "Payment Received Details",
+  SUBMIT_INVOICE: "SUBMIT_INVOICE",
 };
